@@ -32,9 +32,10 @@ class Grep
   end
 
   def lines(file_name)
-    file = File.open('file_namdse.txsd')
-    file.readlines.map(&:chomp)
+    file = File.open(file_name)
+    lines = file.readlines.map(&:chomp)
     file.close
+    lines
   rescue Errno::ENOENT
     p "#{file_name} is not found"
     []
@@ -68,7 +69,7 @@ class Grep
   end
 
   def handle_l_flag(file_name, lines, regex)
-    lines.any? { |line| match_pattern(line, regex) } ? file_name : ''
+    lines.any? { |line| match_pattern(line, regex) } ? file_name : nil
   end
 
   def beginning_of_line(file_name)
